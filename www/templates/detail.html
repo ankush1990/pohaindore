@@ -25,16 +25,16 @@
         <span class="stable">
           {{ p_name }}
         </span>
-        <span class="price stable" ng-if="!product.sale_price">${{ p_price }}</span>
-        <span class="price stable" ng-if="product.sale_price">${{ p_sale_price}}</span>
-        <span class="old-price" ng-if="product.sale_price">${{ p_price }}</span>
+        <span class="price stable" ng-if="!product.sale_price">{{ p_price }}</span>
+        <span class="price stable" ng-if="product.sale_price">{{ p_sale_price}}</span>
+        <span class="old-price" ng-if="product.sale_price">{{ p_price }}</span>
       </p>
     </div>
 
     <!-- Description -->
     <div class="linediv-l"></div>
     <div class="padding">
-      <h4 class="positive">Description</h4>
+      <h4 class="positive" ng-show="p_name.length > 0">Description</h4>
       <div class="stable">
         {{ p_description }}
       </div>
@@ -46,7 +46,7 @@
         Add to cart
       </button>
     </div>-->
-    <ngcart-addtocart id="{{p_id }}" name="{{ p_name }}" price="{{ p_price }}" quantity="1" quantity-max="5"> 
+    <ngcart-addtocart ng-show="p_name.length > 0" id="{{p_id }}" name="{{ p_name }}" price="{{ p_price }}" quantity="1" quantity-max="5"> 
 		Add to cart<i class="icon ion-ios-paperplane"></i>
     </ngcart-addtocart>
     
@@ -66,7 +66,7 @@
     </div>-->
 
     <!-- Item -->
-    <div class="item-divider padding dark-bg stable">Reviews</div>
+    <div class="item-divider padding dark-bg stable" ng-show="p_name.length > 0">Reviews</div>
     <div class="list">
       <div class="item item-avatar no-bg no-border stable" ng-repeat="review in product.reviews">
         <img src="{{ review.avatar }}" alt=""/>

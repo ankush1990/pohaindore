@@ -5623,7 +5623,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .loading-container .loading {
     padding: 20px;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #FFF;
     color: #fff;
     text-align: center;
     text-overflow: ellipsis;
@@ -9879,7 +9879,20 @@ a {
 
 .product-list .card, .list-inset{margin:0px;}
 .product-list .list .item-body{padding:8px 8px 0px;}
-.product-list .list .item-body h4{font-weight:bold; font-size:20px; text-align:center;}
+.product-list .list .item-body h4{font-weight:bold; font-size:12px; text-align:center;width: 130px;overflow: hidden;
+   white-space: nowrap;
+
+}
+.product-list .list .item-body h4.clipped {
+   text-overflow: clip;
+  }
+.product-list .list .item-body h4.ellipses {
+   text-overflow: ellipsis;
+  }
+
+
+
+}
 .product-list .list .button-full{margin-bottom:5px;}
 .relative-box{position:relative; margin-bottom:65px;}
 .price-box {
@@ -9963,6 +9976,7 @@ a {
 
 .relative-box {
     margin-bottom: 40px;
+	height: 150px;
 }
 
 

@@ -2,11 +2,28 @@
  * @author: Duy Thanh DAO
  * @email: success.ddt@gmail.com
  */
+
 angular.module('starter.controllers', [])
+
+.controller('LoginCtrl', function($scope,$rootScope,$ionicHistory) {
+	$scope.login = "";
+	
+	$rootScope.$on('login_var', function (event, args) {
+		$scope.login = args.global_login;
+		
+	});
+	
+	$scope.logout = function(){
+		$ionicHistory.clearCache()
+		var login_var = "";
+		$rootScope.$broadcast('login_var',{global_login:login_var});
+	}
+})
 
 // Home controller
 .controller('HomeCtrl', function($scope, Product, $ionicNavBarDelegate) {
   // slider images
+  $scope.login = "sdfd";
   $scope.slides = [
     {
       url: 'img/slide_1.jpg'
@@ -23,8 +40,9 @@ angular.module('starter.controllers', [])
 })
 
 // Category controller
-.controller('CategoryCtrl', function($scope,Product,$state,$http) {
-  	//$scope.products = Product.all();
+.controller('CategoryCtrl', function($scope,Product,$state,$http,$ionicLoading) {
+  	$ionicLoading.show({template: '<ion-spinner icon="crescent"></ion-spinner>'});
+	
 	var action = "all_product";
 	var orderby = "all";
 	var category = "all";
@@ -34,14 +52,15 @@ angular.module('starter.controllers', [])
 	})
 	.success(function(response) {
 		if(response[0].status == "Y"){
+			$ionicLoading.hide();
 			$scope.response = response;
 		}
 	});
 })
 
 // Product detail controller
-.controller('DetailCtrl', function($scope,Product,$stateParams,$state,$http) {
-  	//$scope.product = Product.get(1);
+.controller('DetailCtrl', function($scope,Product,$stateParams,$state,$http,$ionicLoading) {
+	$ionicLoading.show({template: '<ion-spinner icon="crescent"></ion-spinner>'});
 	
 	var product_id = $stateParams.product_id;
   	var action = "get_product_detail";
@@ -52,6 +71,7 @@ angular.module('starter.controllers', [])
 	})
 	.success(function(response) {
 		if(response[0].status == "Y"){
+			$ionicLoading.hide();
 			$scope.response = response;
 			$scope.p_id = response[0].p_id;
 			$scope.p_name = response[0].p_name;
@@ -61,6 +81,7 @@ angular.module('starter.controllers', [])
 			$scope.p_description = response[0].p_deas;
 		}
 	});
+	
 })
 
 // Cart controller
@@ -165,9 +186,12 @@ angular.module('starter.controllers', [])
 
 // Authentication controller
 // Put your login, register functions here
-.controller('AuthCtrl', function($scope, $ionicHistory) {
+.controller('AuthCtrl', function($scope,$ionicHistory,$rootScope) {
     // hide back butotn in next view
-    $ionicHistory.nextViewOptions({
-      disableBack: true
+	$ionicHistory.nextViewOptions({
+      	disableBack: true
     });
+	var login_var = "d";
+	$rootScope.$broadcast('login_var',{global_login:login_var});
+   
 });

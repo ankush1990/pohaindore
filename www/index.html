@@ -77,15 +77,6 @@
             Menu
           </div>
           <div class="item" ui-sref="category">
-              Sav Special
-          </div>
-          <div class="item" ui-sref="category">
-              Veg Delight
-          </div>
-          <div class="item" ui-sref="category">
-              Sweet
-          </div>
-          <div class="item" ui-sref="category">
               Tandori
           </div>
           
@@ -106,11 +97,11 @@
             <i class="icon ion-ios-person-outline"></i>
             User
           </div>
-          <div class="item item-icon-left" ui-sref="login">
+          <div class="item item-icon-left"  ng-controller="LoginCtrl" ng-click='logout()' ng-show="login.length > 0">
             <i class="icon ion-log-out"></i>
             Logout
           </div>
-          <div class="item item-icon-left" ui-sref="login">
+          <div class="item item-icon-left" ui-sref="login" ng-controller="LoginCtrl" ng-show="login.length == 0">
             <i class="icon ion-log-in"></i>
             Login
           </div>
@@ -123,4 +114,5 @@
   </ion-side-menus>
 
   </body>
+  
 </html>
