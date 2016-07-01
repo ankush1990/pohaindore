@@ -1,21 +1,21 @@
  
- <ion-content class="has-header">
-	<ion-list class="list-inset" ng-show="ngCart.getTotalItems() === 0">   
-		<div class="card">
-			<div class="item item-text-wrap">
-				<a class="item item-icon-left dark" href="#">
-					<i class="icon ion-bag"></i>
-						Your Cart is empty
-					</a>
-			</div>
-		</div>
-	</ion-list>
+<ion-content class="has-header">
+<ion-list class="list-inset" ng-show="ngCart.getTotalItems() === 0">   
+    <div class="card">
+        <div class="item item-text-wrap">
+            <a class="item item-icon-left dark" href="#">
+                <i class="icon ion-bag"></i>
+                    Your Cart is empty
+                </a>
+        </div>
+    </div>
+</ion-list>
   <ion-list ng-show="ngCart.getTotalItems() > 0">
 	
 		<div class="item item-divider assertive">
 			<i class="icon ion-clipboard"></i> List
 		</div>
-    <ion-item class="item-remove-animate item-icon-right" ng-repeat="item in ngCart.getCart().items track by $index">
+    	<ion-item class="item-remove-animate item-icon-right" ng-repeat="item in ngCart.getCart().items track by $index">
 			
 			<div class="subdued dark"> {{ item.getName() }} </div>
 			{{ item.getPrice() |  currency  }}
@@ -52,7 +52,7 @@
 	
 	<ngcart-checkout service="http" settings="{ url:'#/app/checkout' }">Checkout</ngcart-checkout>
 </ion-list>
-	<a class="bar bar-footer bar-assertive" menu-close ng-show="ngCart.getTotalItems()" href="#/checkout">
+	<a class="bar bar-footer bar-assertive" ng-click="checklogin()" menu-close ng-show="ngCart.getTotalItems()">
       <div class="title">
             Checkout
       </div>

@@ -2,20 +2,21 @@
  * @author: Duy Thanh DAO
  * @email: success.ddt@gmail.com
  */
+var login_var = "";
 
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope,$rootScope,$ionicHistory) {
+.controller('LogoutCtrl', function($scope,$rootScope,$ionicHistory) {
 	$scope.login = "";
 	
 	$rootScope.$on('login_var', function (event, args) {
 		$scope.login = args.global_login;
-		
+		login_var = args.global_login;
 	});
 	
 	$scope.logout = function(){
-		$ionicHistory.clearCache()
-		var login_var = "";
+		$ionicHistory.clearCache();
+		login_var = "";
 		$rootScope.$broadcast('login_var',{global_login:login_var});
 	}
 })
@@ -85,9 +86,27 @@ angular.module('starter.controllers', [])
 })
 
 // Cart controller
-.controller('CartCtrl', function($scope,$http,ngCart) {
-	ngCart.setTaxRate(0);
-    ngCart.setShipping(0); 	
+.controller('CartCtrl', function($scope,$http,ngCart,$ionicPopup) {
+	$scope.checklogin = function(){
+		if(login_var.length > 0){
+			ngCart.setTaxRate(0);
+			ngCart.setShipping(0); 	
+			$state.go('checkout');
+		}
+		else{
+			$ionicPopup.show({
+				  template: '',
+				  title: "Please login first",
+				  scope: $scope,
+				  buttons: [
+					{ 
+					  text: 'Ok',
+					  type: 'button-assertive'
+					},
+				  ]
+			})
+		}
+	}
 })
 
 // Checkout Controller, process checkout steps here
@@ -186,12 +205,57 @@ angular.module('starter.controllers', [])
 
 // Authentication controller
 // Put your login, register functions here
-.controller('AuthCtrl', function($scope,$ionicHistory,$rootScope) {
+.controller('AuthCtrl', function($scope,$ionicHistory,$rootScope,$http,$ionicPopup,$state) {
+	$scope.user = {username: '',password : ''};
     // hide back butotn in next view
 	$ionicHistory.nextViewOptions({
       	disableBack: true
     });
-	var login_var = "d";
-	$rootScope.$broadcast('login_var',{global_login:login_var});
-   
+	
+	
+   	$scope.signIn = function(user) {
+		var username = user.username;
+		var password = user.password;
+		
+		
+		if(typeof username === "undefined" || typeof password === "undefined" || username == "" || password == ""){
+			$ionicPopup.show({
+			  template: '',
+			  title: 'Please fill all fields',
+			  scope: $scope,
+			  buttons: [
+				{ 
+				  text: 'Ok',
+				  type: 'button-assertive'
+				},
+			  ]
+			})
+		}
+		else{
+			var action = "login";
+			var data_parameters = "action="+action+"&username="+username+ "&password="+password;
+			$http.post(globalurl,data_parameters, {
+				headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+			})
+			.success(function(response) {
+				if(response[0].status == "Y"){
+					$rootScope.$broadcast('login_var',{global_login:response[0].result.user_id});
+					$state.go('home');
+				}
+				else{
+					$ionicPopup.show({
+					  template: '',
+					  title: 'Username or password is wrong',
+					  scope: $scope,
+					  buttons: [
+						{
+						  text: 'Ok',
+						  type: 'button-assertive'
+						},
+					  ]
+					})
+				}
+			});
+		}
+	};
 });

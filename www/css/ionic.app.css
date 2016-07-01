@@ -9346,7 +9346,9 @@ a.button {
     content: "."; }
 
 .full-image {
-  width: 100%; }
+  width: 100%; 
+  height:100%;
+}
 
 .clearfix {
   *zoom: 1; }
@@ -9879,7 +9881,7 @@ a {
 
 .product-list .card, .list-inset{margin:0px;}
 .product-list .list .item-body{padding:8px 8px 0px;}
-.product-list .list .item-body h4{font-weight:bold; font-size:12px; text-align:center;width: 130px;overflow: hidden;
+.product-list .list .item-body h4{font-weight:bold; font-size:12px; text-align:center; overflow: hidden;
    white-space: nowrap;
 
 }
@@ -9976,7 +9978,7 @@ a {
 
 .relative-box {
     margin-bottom: 40px;
-	height: 150px;
+	height: 125px;
 }
 
 

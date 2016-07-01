@@ -386,6 +386,7 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
     }])
 
     .directive('ngcartCart', [function(){
+		
         return {
             restrict : 'E',
             controller : 'CartController',
@@ -400,6 +401,8 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             link:function(scope, element, attrs){
 
             }
+			
+			
         };
     }])
 
@@ -424,8 +427,8 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             restrict : 'E',
             controller : ('CartController', ['$rootScope', '$scope','$state', 'ngCart', 'fulfilmentProvider', function($rootScope, $scope, $state, ngCart, fulfilmentProvider) {
                 $scope.ngCart = ngCart;
-
-                $scope.checkout = function () {
+				
+				$scope.checkout = function () {
                     fulfilmentProvider.setService($scope.service);
                     fulfilmentProvider.setSettings($scope.settings);
                     fulfilmentProvider.checkout()

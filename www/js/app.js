@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var globalurl = "http://www.starhealthbazar.com/webservice/";
+var globalurl = "http://pohaindorinamkeen.com/webservice";
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCart'])
 
 

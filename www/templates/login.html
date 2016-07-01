@@ -5,21 +5,22 @@
       <h1>
         <i class="energized ion-bag"></i>
       </h1>
-      <h2 class="energized">Dark shop</h2>
+      <h2 class="energized">M2 Food Restro</h2>
       <p class="energized">Mobile E-commerce</p>
     </div>
 
     <!-- Login form -->
     <div class="list list-inset no-bg">
       <label class="item item-input dark-input">
-        <input type="email" placeholder="Email">
+        <input type="text" placeholder="Username" ng-model="user.username">
       </label>
       <label class="item item-input dark-input">
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password"  ng-model="user.password">
       </label>
     </div>
+    
     <div class="padding text-center">
-      <button class="button button-block button-positive" ui-sref="home">
+      <button class="button button-block button-positive" ng-click="signIn(user)">
         Login
       </button>
 
