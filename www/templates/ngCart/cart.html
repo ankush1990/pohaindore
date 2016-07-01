@@ -1,4 +1,3 @@
- 
 <ion-content class="has-header">
 <ion-list class="list-inset" ng-show="ngCart.getTotalItems() === 0">   
     <div class="card">
@@ -29,7 +28,7 @@
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			
            <!-- {{ item.getTotal() |  currency : 'Rp' }} -->
-		    <ion-option-button class="button-assertive" ng-click="ngCart.removeItemById(item.getId())"">
+		    <ion-option-button class="button-assertive" ng-click="ngCart.removeItemById(item.getId())">
 				<span class="icon ion-trash-a"></span> 
 			</ion-option-button>
     </ion-item>
@@ -50,9 +49,10 @@
     </div>
 
 	
-	<ngcart-checkout service="http" settings="{ url:'#/app/checkout' }">Checkout</ngcart-checkout>
+	<ngcart-checkout  ng-click="checklogin()" service="http" settings="{ url:'#/app/checkout' }">Checkout</ngcart-checkout>
+   
 </ion-list>
-	<a class="bar bar-footer bar-assertive" ng-click="checklogin()" menu-close ng-show="ngCart.getTotalItems()">
+	 <a class="bar bar-footer bar-assertive" ng-controller="CartCtrl" ng-click="checklogin()" ng-show="ngCart.getTotalItems()">
       <div class="title">
             Checkout
       </div>

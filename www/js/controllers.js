@@ -2,7 +2,7 @@
  * @author: Duy Thanh DAO
  * @email: success.ddt@gmail.com
  */
-var login_var = "";
+var global_login_id = "";
 
 angular.module('starter.controllers', [])
 
@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
 	
 	$rootScope.$on('login_var', function (event, args) {
 		$scope.login = args.global_login;
-		login_var = args.global_login;
+		global_login_id = args.global_login;
 	});
 	
 	$scope.logout = function(){
@@ -22,22 +22,34 @@ angular.module('starter.controllers', [])
 })
 
 // Home controller
-.controller('HomeCtrl', function($scope, Product, $ionicNavBarDelegate) {
+.controller('HomeCtrl', function($scope, Product, $ionicNavBarDelegate,$http,$ionicLoading) {
   // slider images
-  $scope.login = "sdfd";
-  $scope.slides = [
-    {
-      url: 'img/slide_1.jpg'
-    },
-    {
-      url: 'img/slide_2.jpg'
-    },
-    {
-      url: 'img/slide_3.jpg'
-    }
-  ]
-  // list products
-  $scope.products = Product.all();
+  
+	$scope.slides = [
+		{
+		  url: 'img/slide_1.jpg'
+		},
+		{
+		  url: 'img/slide_2.jpg'
+		},
+		{
+		  url: 'img/slide_3.jpg'
+		}
+	]
+  	$ionicLoading.show({template: '<ion-spinner icon="crescent"></ion-spinner>'});
+	// list products
+	var action = "best_selling_product";
+	var data_parameters = "action="+action;
+	$http.post(globalurl,data_parameters, {
+		headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+	})
+	.success(function(response) {
+		if(response[0].status == "Y"){
+			$ionicLoading.hide();
+			$scope.response = response;
+		}
+	});
+  
 })
 
 // Category controller
@@ -86,31 +98,25 @@ angular.module('starter.controllers', [])
 })
 
 // Cart controller
-.controller('CartCtrl', function($scope,$http,ngCart,$ionicPopup) {
+.controller('CartCtrl', function($scope,$http,ngCart,$ionicPopup,$state) {
 	$scope.checklogin = function(){
-		if(login_var.length > 0){
+		
+		if(global_login_id != ""){
 			ngCart.setTaxRate(0);
 			ngCart.setShipping(0); 	
 			$state.go('checkout');
 		}
 		else{
-			$ionicPopup.show({
-				  template: '',
-				  title: "Please login first",
-				  scope: $scope,
-				  buttons: [
-					{ 
-					  text: 'Ok',
-					  type: 'button-assertive'
-					},
-				  ]
-			})
+			$state.go('login');
 		}
 	}
 })
 
 // Checkout Controller, process checkout steps here
-.controller('CheckoutCtrl', function($scope) {})
+.controller('CheckoutCtrl', function($scope) {
+	
+		
+})
 
 // History Controller, process checkout steps here
 .controller('HistoryCtrl', function($scope) {})

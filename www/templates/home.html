@@ -18,14 +18,27 @@
     <h4 class="text-center stable">Discover our topsellers</h4>
 
     <!-- List of items: 2 columns-->
-    <div class="row flex-wrap">
-      <div class="col-50" ng-repeat="item in products">
-        <a ui-sref="detail">
-          <img class="full-image" src="{{ item.thumb }}" alt=""/>
-          <div class="product-title dark-bg">{{ item.name }} - ${{ item.price }}</div>
-        </a>
+    <div class="product-list">		
+		<div class="row flex-wrap">
+
+            <div class="col col-50" ng-repeat="item in response">
+                <div class="list card">
+                    <div class="item item-body">
+
+                        <div class="relative-box">
+                            <img class="full-image" src="{{ item.p_image_url }}">	
+                            <div class="price-box">{{ item.p_price }}</div>
+                        </div>
+
+                        <h4>{{ item.p_name }}</h4>
+                        <p>
+                        <a ui-sref="detail({product_id:item.p_id})"><button class="button button-full button-assertive"> Detail  </button>					</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
       </div>
-    </div>
+  </div>	
 
   </ion-content>
 </ion-view>
