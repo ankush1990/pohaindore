@@ -33,7 +33,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
   })
   // View category
   .state('category', {
-    url: '/category',
+    url: '/category/:category_id',
     templateUrl: 'templates/category.html',
     controller: 'CategoryCtrl'
   })

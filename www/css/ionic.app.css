@@ -9853,7 +9853,7 @@ a {
   color: #f8f8f8; }
 
 .item-radio input:checked + .radio-content .item-content {
-  background: #292933; }
+  background: #f08080; }
 
 .addtocart_custom{
 	padding:16px !important;

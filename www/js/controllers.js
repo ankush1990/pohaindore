@@ -53,20 +53,24 @@ angular.module('starter.controllers', [])
 })
 
 // Category controller
-.controller('CategoryCtrl', function($scope,Product,$state,$http,$ionicLoading) {
+.controller('CategoryCtrl', function($scope,Product,$state,$http,$ionicLoading,$stateParams) {
   	$ionicLoading.show({template: '<ion-spinner icon="crescent"></ion-spinner>'});
 	
+	var category_name = $stateParams.category_id;
 	var action = "all_product";
-	var orderby = "all";
-	var category = "all";
+	var orderby = "date";
+	var category = category_name;
   	var data_parameters = "action="+action+ "&orderby="+orderby+ "&category="+category;
 	$http.post(globalurl,data_parameters, {
 		headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
 	})
 	.success(function(response) {
+		$ionicLoading.hide();
 		if(response[0].status == "Y"){
-			$ionicLoading.hide();
 			$scope.response = response;
+		}
+		else{
+			$scope.response = "no";
 		}
 	});
 })
@@ -83,8 +87,8 @@ angular.module('starter.controllers', [])
 		headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
 	})
 	.success(function(response) {
+		$ionicLoading.hide();
 		if(response[0].status == "Y"){
-			$ionicLoading.hide();
 			$scope.response = response;
 			$scope.p_id = response[0].p_id;
 			$scope.p_name = response[0].p_name;
